@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','status','shop_id',
     ];
 
     /**
@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //获取该账号的所属商家 一对多（反向）
+    public function shop(){
+        return $this->belongsTo('App\Models\Shop');//Shop::class
+    }
 }

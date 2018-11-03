@@ -18,8 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->tinyInteger('status');
+            $table->tinyInteger('shop_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->engine='innoDB';
         });
     }
 
