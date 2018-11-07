@@ -6,8 +6,7 @@ use App\Models\ShopCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ShopCategoryController extends Controller
-{
+class ShopCategoryController extends Controller{
     //商家分类列表
     public function index(){
         $shopgories = ShopCategory::all();

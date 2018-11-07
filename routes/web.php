@@ -50,4 +50,24 @@ Route::get('end','ActivityController@end')->name('end');
 //资源路由-活动管理
 Route::resource('activities','ActivityController');
 
+//订单量统计
+Route::get('order','OrderController@order')->name('order');
+//菜品销量统计
+Route::get('sales_volume','OrderController@sales_volume')->name('sales_volume');
+
+//会员列表
+Route::get('members/index','MemberController@index')->name('members.index');
+//会员禁用
+Route::get('members/edit/{member}','MemberController@edit')->name('members.edit');
+
+//资源路由-角色管理
+Route::resource('roles','RolesController');
+//资源路由-权限管理
+Route::resource('permissions','PermissionsController');
+
+//资源路由-导航菜单管理
+Route::resource('navs','NavController');
+
+
+
 

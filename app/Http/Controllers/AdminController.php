@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller{
     //管理员列表
@@ -14,7 +15,8 @@ class AdminController extends Controller{
     }
     //添加管理员表单
     public function create(){
-        return view('admins.create');
+        $roles = Role::all();
+        return view('admins.create',compact('roles'));
     }
     //保存新增管理员
     public function store(Request $request){
@@ -28,11 +30,14 @@ class AdminController extends Controller{
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+        $admin = Admin::where('name',$request->name)->first();
+        $admin->syncRoles($request->roles);
         return redirect()->route('admins.index')->with('success','添加管理员成功');
     }
     //管理员修改-回显
     public function edit(Admin $admin){
-        return view('admins.edit',compact('admin'));
+        $roles = Role::all();
+        return view('admins.edit',compact('admin','roles'));
     }
     //保存管理员修改
     public function update(Request $request,Admin $admin){
@@ -44,6 +49,8 @@ class AdminController extends Controller{
             'name' => $request->name,
             'email' => $request->email,
         ]);
+        $admin = Admin::where('name',$request->name)->first();
+        $admin->syncRoles($request->roles);
         return redirect()->route('admins.index')->with('success','管理员修改成功');
     }
     //删除管理员
